@@ -138,7 +138,7 @@ class Container:
                 git_match = self.git_volume_pattern.match(source)
                 if git_match:
                     source = "../{}/{}".format(git_match.group(1), git_match.group(2).lstrip("/"))
-                self._devmodes[name][mount_point] = source
+                self._devmodes[name][mount_point] = os.path.abspath(os.path.join(self.graph.path, source))
         # Ports is a dict of {port on container: host exposed port}
         self.ports = config_data.get("ports", {})
         self.build_checks = config_data.get("build_checks", [])
